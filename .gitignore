@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Models and Data (comment out if you want to track these)
+*.pkl
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

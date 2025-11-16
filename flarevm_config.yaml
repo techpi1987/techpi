@@ -1,0 +1,18 @@
+VM_NAME: "Windows 10 Base"  # Your VirtualBox VM name
+EXPORTED_VM_NAME: "FLARE-VM"
+SNAPSHOTS:
+  - extension: ""
+    description: "FLARE-VM Base Installation"
+  - extension: ".ida"
+    description: "FLARE-VM with IDA Pro"
+    cmd: |
+      # Example: Install IDA Pro if installer is present
+      $installer = "C:\Users\flare\Desktop\idafree.exe"
+      if (Test-Path $installer) {
+        Start-Process -Wait -FilePath $installer -ArgumentList "/S"
+      }
+  - extension: ".ghidra"
+    description: "FLARE-VM with Ghidra"
+    cmd: |
+      # Example: Install additional tools
+      choco install ghidra -y

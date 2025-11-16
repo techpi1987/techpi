@@ -1,0 +1,43 @@
+name: Auto Commit Generated Changes
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 02:00 UTC (edit as needed)
+  workflow_dispatch: {}
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+
+      - name: Run generator script
+        run: |
+          python scripts/generate.py
+
+      - name: Create a branch, commit and open Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: auto-generated content"
+          title: "chore: auto-generated content"
+          body: |
+            This PR was created automatically by the scheduled generator.
+            Review and merge to apply generated changes.
+          branch: auto/generated-${{ github.run_id }}
+          base: ${{ github.ref_name || 'main' }}
+          path: scripts/generated.txt
+          signoff: false

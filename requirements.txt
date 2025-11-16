@@ -1,0 +1,2 @@
+# Optional dependencies for GitHub Actions generator
+# Add any packages your generator script needs here
